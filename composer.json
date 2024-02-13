@@ -1,6 +1,6 @@
 {
   "type": "project",
-  "name": "WIDECONNECT/hotspot",
+  "name": "wideconnect/hotspot",
   "description": "Software",
   "license": "proprietary",
   "minimum-stability": "dev",
