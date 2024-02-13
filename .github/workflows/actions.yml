@@ -61,8 +61,6 @@ jobs:
                         ${{ runner.os }}-php-
 
             -   name: Install Dependencies
-                env:
-                    COMPOSER_AUTH: '{"github-oauth": {"github.com": "${{ secrets.COMPOSER_AUTH }}"} }' # Key stored on repository
                 run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
 
             # —— Setup Yarn 🐱 ————————————————————————————————————————————————————————————
