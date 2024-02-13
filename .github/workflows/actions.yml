@@ -12,8 +12,8 @@ jobs:
         runs-on: ubuntu-latest
         env:
             db_user: root
-            db_password: WIDECONNECT
-            db_name: WIDECONNECT
+            db_password: wideconnect
+            db_name: wideconnect
             db_host: 127.0.0.1
             db_type: mysql
         services:
@@ -105,7 +105,7 @@ jobs:
 
             # —— Setup Script 🔧 ——————————————————————————————————————————————————————————
             -   name: Debug statement code
-                run: php bin/console WIDECONNECT:debug
+                run: php bin/console wideconnect:debug
 
             # —— Setup Unit test ✅ ————————————————————————————————————————————————————————
             -   name: Unit tests
