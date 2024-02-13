@@ -1,0 +1,14 @@
+{% extends 'extensions/form/form_action.html.twig' %}
+
+{% set type = 'delete' %}
+{% set label = 'supprimer' %}
+
+{% block constraints %}{% endblock %}
+
+{% block message %}
+    <p>
+        <strong>
+            Êtes-vous sûr de vouloir {{ label }} l'utilisateur {{ user.username }} ?
+        </strong>
+    </p>
+{% endblock %}

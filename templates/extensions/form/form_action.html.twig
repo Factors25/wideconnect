@@ -1,0 +1,25 @@
+{% block form %}
+    <form method="post">
+        {{ component('Flash', {'errors': errors is defined ? errors : []}) }}
+
+        {% block constraints %}{% endblock %}
+
+        {% block message %}
+            {{ message is defined ? message : '' }}
+        {% endblock %}
+
+        <div class="row">
+            <div class="col d-flex justify-content-end">
+                {% block action %}
+                    {% if type == 'delete' %}
+                        <input type="hidden" name="_method" value="DELETE">
+                        <input type="hidden" name="token" value="{{ csrf_token('delete-resource') }}">
+
+                        {{ component('FormButton', {type:'danger'}, (label)|capitalize) }}
+                        {{ component('FormButton', {type:'light'}) }}
+                    {% endif %}
+                {% endblock %}
+            </div>
+        </div>
+    </form>
+{% endblock %}

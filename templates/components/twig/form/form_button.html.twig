@@ -1,0 +1,36 @@
+{% if type == 'primary' %}
+    {% set class = 'btn btn-primary me-1 ' ~ (size ? 'btn-' ~ size : 'btn-lg') %}
+    {% set label = label ?: 'Voir' %}
+{% endif %}
+
+{% if type == 'secondary' %}
+    {% set class = 'btn btn-secondary me-1 ' ~ (size ? 'btn-' ~ size : 'btn-lg') %}
+    {% set label = label ?: 'Changer' %}
+{% endif %}
+
+{% if type == 'light' %}
+    {% set class = 'btn btn-light me-1 ' ~ (size ? 'btn-' ~ size : 'btn-lg') %}
+    {% set label = label ?: 'Annuler' %}
+{% endif %}
+
+{% if type == 'success' %}
+    {% set class = 'btn btn-success me-1 ' ~ (size ? 'btn-' ~ size : 'btn-lg') %}
+    {% set label = label ?: 'Ajouter' %}
+{% endif %}
+
+{% if type == 'danger' %}
+    {% set class = 'btn btn-danger me-1 ' ~ (size ? 'btn-' ~ size : 'btn-lg') %}
+    {% set label = label ?: 'Supprimer' %}
+{% endif %}
+
+{% if type == 'warning' %}
+    {% set class = 'btn btn-warning me-1 ' ~ (size ? 'btn-' ~ size : 'btn-lg') %}
+    {% set label = label ?: 'Modifier' %}
+{% endif %}
+
+<button
+        class="{{ class }}"
+        {{ type == 'light' ? 'data-bs-dismiss="modal"' : 'type="submit"' }}
+>
+    {{ label }}
+</button>

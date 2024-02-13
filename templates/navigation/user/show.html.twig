@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('user_show') }}
+{% endblock %}
+
+{% block title %}Utilisateurs{% endblock %}
+
+{% block content_title %}Utilisateurs{% endblock %}
+
+{% block content_right %}
+    <div class="d-flex justify-content-end gap-1">
+        <div data-reactive-user="actionUpdate">
+            {{ app_action_user.updateButton(user)|raw }}
+        </div>
+        <div data-reactive-user="actionDelete">
+            {{ app_action_user.deleteButton(user, true, {'redirect': true})|raw }}
+        </div>
+    </div>
+{% endblock %}
+
+{% block breadcrumb %}
+    <ol class="breadcrumb breadcrumb-dot text-muted fs-6 fw-semibold">
+        <li class="breadcrumb-item">
+            <a href="{{ path('user_index') }}">Utilisateurs</a>
+        </li>
+        <li class="breadcrumb-item text-muted" data-reactive-user="username">{{ user.username }}</li>
+    </ol>
+{% endblock %}
+
+{% block body %}
+    <div class="d-none"
+         data-reactive-url="{{ [
+             path('user_api', {'user': user.id})
+         ]|json_encode }}"
+    ></div>
+    {% include 'components/user/_info.html.twig' %}
+{% endblock %}

@@ -1,0 +1,31 @@
+<div class="d-flex align-items-center ms-2 ms-lg-3" id="kt_header_user_menu_toggle">
+    <div class="cursor-pointer symbol symbol-35px symbol-lg-35px"
+         data-kt-menu-trigger="{default: 'click', lg: 'hover'}" data-kt-menu-attach="parent"
+         data-kt-menu-placement="bottom-end">
+        <img alt="Pic" src="{{ asset('build/media/avatars/300-20.jpg') }}"/>
+    </div>
+    <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg menu-state-color fw-semibold py-4 fs-6 w-auto"
+         data-kt-menu="true">
+        <div class="menu-item px-3">
+            <div class="menu-content d-flex align-items-center px-3">
+                <div class="symbol symbol-50px me-5">
+                    <img alt="Logo" src="{{ asset('build/media/avatars/300-20.jpg') }}"/>
+                </div>
+                <div class="d-flex flex-column">
+                    <div class="fw-bold d-flex align-items-center fs-5">{{ app.user ? app.user.username : 'Max Smith' }}
+                        {% if app.user %}
+                            {% for role in app.user.roles %}
+                                <span class="badge badge-light-success fw-bold fs-8 px-2 py-1 ms-2">{{ role|trans({}, 'security') }}</span>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                    <span class="fw-semibold text-muted fs-7">{{ app.user ? app.user.email : 'max@kt.com' }}</span>
+                </div>
+            </div>
+        </div>
+        <div class="separator my-2"></div>
+        <div class="menu-item px-5">
+            <a href="{{ path('logout') }}" class="menu-link px-5">Deconnexion</a>
+        </div>
+    </div>
+</div>

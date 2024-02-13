@@ -1,0 +1,108 @@
+{% macro createSidebar(sidebar) %}
+    {% for category in sidebar.categories %}
+        {% if category.name == 'separator' %}
+            {{ _self.createSeparator() }}
+        {% else %}
+            <div class="menu-item">
+                <div class="menu-content">
+                    <span class="fw-bold text-muted text-uppercase fs-7">{{ category.name }}</span>
+                </div>
+            </div>
+
+            {% if category.menus is defined %}
+                {% for menu in category.menus %}
+                    {{ _self.createMenu(menu, 1) }}
+                {% endfor %}
+            {% endif %}
+        {% endif %}
+    {% endfor %}
+{% endmacro %}
+
+{% macro createMenu(menu, index) %}
+    {% if index == 1 and menu.menus is not defined %}
+        <div class="menu-item">
+            <a class="menu-link"
+               href="{{ menu.href is defined ? menu.href : '#' }}"
+                    {{ _self.createAttributes(menu) }}>
+                {{ _self.createMenuItem(menu) }}
+            </a>
+        </div>
+    {% endif %}
+
+    {% if index == 1 and menu.menus is defined %}
+        <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+            <span class="menu-link">
+                {{ _self.createMenuItem(menu) }}
+                <span class="menu-arrow"></span>
+            </span>
+            {% for menu in menu.menus %}
+                {{ _self.createMenu(menu, index + 1) }}
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    {% if index != 1 and menu.menus is defined %}
+        <div class="menu-sub menu-sub-accordion">
+            <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+                <span class="menu-link">
+                    {{ _self.createMenuItem(menu) }}
+                    <span class="menu-arrow"></span>
+                </span>
+                {% for menu in menu.menus %}
+                    {{ _self.createMenu(menu, index + 1) }}
+                {% endfor %}
+            </div>
+        </div>
+    {% endif %}
+
+    {% if index != 1 and menu.menus is not defined %}
+        <div class="menu-sub menu-sub-accordion">
+            <div class="menu-item">
+                <a class="menu-link" href="{{ menu.href is defined ? menu.href : '#' }}">
+                    {{ _self.createMenuItem(menu) }}
+                </a>
+            </div>
+        </div>
+    {% endif %}
+{% endmacro %}
+
+{% macro createIcon(menu) %}
+    {% if menu.icon is defined %}
+        {% if menu.icon starts with '<svg' %}
+            <span class="menu-icon">
+                <span class="svg-icon svg-icon-2 me-2">
+                    {{ menu.icon|raw }}
+                </span>
+            </span>
+        {% else %}
+            <img src="{{ menu.icon }}" alt="Image" class="h-20px w-20px me-2">
+        {% endif %}
+    {% else %}
+        <span class="menu-bullet">
+            <span class="bullet bullet-dot"></span>
+        </span>
+    {% endif %}
+{% endmacro %}
+
+{% macro createSeparator() %}
+    <div class="menu-item">
+        <div class="menu-content">
+            <div class="separator mx-1 my-4"></div>
+        </div>
+    </div>
+{% endmacro %}
+
+{% macro createTitle(menu) %}
+    <span class="menu-title fs-4">{{ menu.name|raw }}</span>
+{% endmacro %}
+
+{% macro createMenuItem(menu) %}
+    {{ _self.createIcon(menu) }}
+    {{ _self.createTitle(menu) }}
+{% endmacro %}
+
+{% macro createAttributes(menu) %}
+    {% if menu.attributes is defined %}
+        {{ menu.attributes|raw }}
+    {% endif %}
+{% endmacro %}

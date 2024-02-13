@@ -1,0 +1,22 @@
+{% block form %}
+    {{ form_start(form) }}
+
+    {{ component('Flash', {'errors': errors is defined ? errors : []}) }}
+
+    <div class="row">
+        {% block form_body %}{% endblock %}
+    </div>
+
+    <div class="row">
+        <div class="col d-flex justify-content-end">
+            {% block form_submit %}
+                {{ component('FormButton', {'type': 'success', 'label': form.vars.data.id ? 'Modifier' : 'Ajouter'}) }}
+            {% endblock %}
+            {% block form_cancel %}
+                {{ component('FormButton', {'type': 'light'}) }}
+            {% endblock %}
+        </div>
+    </div>
+
+    {{ form_end(form) }}
+{% endblock %}

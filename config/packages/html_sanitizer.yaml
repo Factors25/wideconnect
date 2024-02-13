@@ -1,0 +1,9 @@
+framework:
+    html_sanitizer:
+        sanitizers:
+            app.clean:
+                allow_safe_elements: false
+                allow_static_elements: false
+            app.default:
+                allow_safe_elements: true
+                allow_static_elements: true

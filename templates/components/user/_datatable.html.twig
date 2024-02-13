@@ -1,0 +1,29 @@
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header border-0 pt-6">
+                <div class="card-title">Liste des utilisateurs</div>
+                {{ app_action_user.createButton()|raw }}
+            </div>
+            <div class="card-body py-4">
+                <div class="table-responsive">
+                    <table class="table align-middle table-striped table-row-bordered gy-5 gs-7"
+                           data-datatable="User"
+                           data-server-side-url="{{ path('user_datatable') }}">
+                        <thead>
+                            <tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
+                                <th data-orderable="true" data-name="username">Login</th>
+                                <th data-orderable="true" data-name="email">Email</th>
+                                <th data-orderable="false" data-name="roles">Rôle(s)</th>
+                                <th data-orderable="true" data-name="active">Activé ?</th>
+                                <th data-orderable="true" data-name="verify">Vérifié ?</th>
+                                <th data-orderable="false" data-responsive-priority="1" data-name="actions"></th>
+                            </tr>
+                        </thead>
+                        <tbody class="fw-semibold text-gray-600"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

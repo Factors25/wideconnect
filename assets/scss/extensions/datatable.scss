@@ -1,0 +1,23 @@
+@import "datatables.net-bs5/css/dataTables.bootstrap5.min.css";
+@import "datatables.net-responsive-bs5/css/responsive.bootstrap5.min.css";
+@import "datatables.net-fixedheader-bs5/css/fixedHeader.bootstrap5.min.css";
+
+.dtfh-floatingparent.dtfh-floatingparenthead {
+  z-index: 97 !important;
+  margin-top: 65px;
+  box-shadow: 0 4px 2px -2px purple;
+}
+
+[data-bs-theme="dark"] {
+  tr, th {
+    background-color: rgb(30, 30, 45) !important;
+    color: white !important;
+  }
+}
+
+[data-bs-theme="light"] {
+  tr, th {
+    background-color: #FFF !important;
+    color: black !important;
+  }
+}

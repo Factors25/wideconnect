@@ -1,0 +1,49 @@
+{% extends('extensions/form/form_layout.html.twig') %}
+
+{% block form_body %}
+    <div class="row mb-3">
+        <div class="col-md-6">
+            {{ form_row(form.username) }}
+        </div>
+
+        <div class="col-md-6">
+            {{ form_row(form.email) }}
+        </div>
+    </div>
+
+    {% if form.editPassword is defined %}
+        <div class="row">
+            <div class="col-md-6">
+                {{ form_row(form.editPassword) }}
+            </div>
+        </div>
+    {% endif %}
+
+    <div class="row mb-3" data-container-edit-password>
+        {% if form.password is defined %}
+            <div class="col-md-6">
+                {{ form_label(form.password.first) }}
+                {{ form_widget(form.password.first) }}
+                {{ form_help(form.password.first) }}
+            </div>
+            <div class="col-md-6">
+                {{ form_row(form.password.second) }}
+            </div>
+            <div class="col-12">
+                {{ form_errors(form.password.first) }}
+            </div>
+        {% endif %}
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            {{ form_row(form.active) }}
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            {{ form_row(form.roles) }}
+        </div>
+    </div>
+{% endblock %}

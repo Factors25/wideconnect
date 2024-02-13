@@ -1,0 +1,12 @@
+ROLE_SUPER_ADMIN: Super Administrateur
+ROLE_ADMIN: Administrateur
+ROLE_USER: Utilisateur
+
+user:
+    not:
+        found: L'utilisateur {name} n'existe pas.
+    bad:
+        credentials: Le mot de passe est invalide.
+    found:
+        username: Un utilisateur possède déjà cet username.
+        email: Un utilisateur possède déjà cet email.

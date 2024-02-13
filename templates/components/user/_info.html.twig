@@ -1,0 +1,72 @@
+<div class="row">
+    <div class="col-xl-6">
+        <div class="card">
+            <div class="card-header border-0 pt-6">
+                <div class="card-title">Informations</div>
+            </div>
+            <div class="card-body py-4">
+                <table class="table table-responsive table-bordered table-striped">
+                    <tbody>
+                        <tr>
+                            <th>Login</th>
+                            <td data-reactive-user="username">{{ user.username }}</td>
+                        </tr>
+                        <tr>
+                            <th>Email</th>
+                            <td data-reactive-user="email">{{ user.email }}</td>
+                        </tr>
+                        <tr>
+                            <th>Rôles</th>
+                            <td data-reactive-user="roles">{{ app_service_user.roles(user)|raw }}</td>
+                        </tr>
+                        <tr>
+                            <th>Activé ?</th>
+                            <td data-reactive-user="active">{{ user.active|bool }}</td>
+                        </tr>
+                        <tr>
+                            <th>Vérifié ?</th>
+                            <td data-reactive-user="verify">{{ user.verify|bool }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-6">
+        <div class="card">
+            <div class="card-header border-0 pt-6">
+                <div class="card-title">Historique</div>
+            </div>
+            <div class="card-body py-4">
+                <table class="table table-responsive table-bordered table-striped">
+                    <tbody>
+                        <tr>
+                            <th>Créé</th>
+                            <td data-reactive-user="created">
+                                {{ user|created }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Modifié</th>
+                            <td data-reactive-user="updated">
+                                {{ user|updated }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Supprimé</th>
+                            <td data-reactive-user="deleted">
+                                {{ user|deleted }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Archivé</th>
+                            <td data-reactive-user="archived">
+                                {{ user|archived }}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,118 @@
+name: CI/CD - Symfony x Yarn x MySQL
+on:
+    push:
+        branches:
+            - develop
+            - master
+permissions: write-all
+jobs:
+    prod:
+        name: PROD - Symfony x Yarn x MySQL
+        # https://hub.docker.com/_/ubuntu/
+        runs-on: ubuntu-latest
+        env:
+            db_user: root
+            db_password: WIDECONNECT
+            db_name: WIDECONNECT
+            db_host: 127.0.0.1
+            db_type: mysql
+        services:
+            # https://hub.docker.com/_/mysql
+            mysql:
+                image: mysql:latest
+                env:
+                    MYSQL_ROOT_PASSWORD: ${{ env.db_password }}
+                    MYSQL_PASSWORD: ${{ env.db_password }}
+                    MYSQL_DATABASE: ${{ env.db_name }}
+                ports:
+                    - 3306/tcp
+                options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+        steps:
+            # —— Setup GitBub actions 🐙 —————————————————————————————————————————————
+            # https://github.com/actions/checkout (official)
+            -   name: Github actions checkout
+                uses: actions/checkout@v4
+
+            # —— Setup PHP 💻 —————————————————————————————————————————————
+            # https://github.com/shivammathur/setup-php (community)
+            -   name: Setup PHP, extensions and composer with shivammathur/setup-php
+                uses: shivammathur/setup-php@v2
+                with:
+                    php-version: 8.2
+                    extensions: mbstring, xml, ctype, iconv, intl, pdo, pdo_mysql, dom, filter, gd, iconv, json, mbstring
+                env:
+                    update: true
+
+            -   name: Check PHP Version
+                run: php -v
+
+            # —— Setup Composer 🧙‍️ —————————————————————————————————————————————————————————
+            -   name: Validate composer.json and composer.lock
+                run: composer validate
+
+            # https://github.com/actions/cache
+            -   name: Cache Composer packages
+                id: composer-cache
+                uses: actions/cache@v3
+                with:
+                    path: vendor
+                    key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
+                    restore-keys: |
+                        ${{ runner.os }}-php-
+
+            -   name: Install Dependencies
+                env:
+                    COMPOSER_AUTH: '{"github-oauth": {"github.com": "${{ secrets.COMPOSER_AUTH }}"} }' # Key stored on repository
+                run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
+
+            # —— Setup Yarn 🐱 ————————————————————————————————————————————————————————————
+            # https://github.com/actions/setup-node
+            -   name: NodeJS install
+                uses: actions/setup-node@v4
+                with:
+                    node-version: 18.12.0
+
+            -   name: Yarn install
+                run: yarn install
+
+            -   name: Yarn build
+                run: yarn run encore production
+
+            # —— Setup Symfony 🎵 —————————————————————————————————————————————
+            # https://symfony.com/download (official)
+            -   name: Symfony installation
+                run: |
+                    curl -1sLf 'https://dl.cloudsmith.io/public/symfony/stable/setup.deb.sh' | sudo -E bash
+                    sudo apt install symfony-cli
+
+            -   name: Check Symfony requirements
+                run: symfony check:requirements
+
+            -   name: Check Symfony security
+                run: symfony check:security
+
+            -   name: Check the Symfony console
+                run: php bin/console about
+
+            # —— Setup MySQL ✨ ——————————————————————————————————————————————————————————
+            -   name: Create and setup database
+                run: php bin/console d:m:m --env=prod --no-interaction
+                env:
+                    DATABASE_URL: ${{ env.db_type }}://${{ env.db_user }}:${{ env.db_password }}@${{ env.db_host }}:${{ job.services.mysql.ports['3306'] }}/${{ env.db_name }}
+
+            -   name: Dump to prod
+                run: composer dump-env prod
+
+            # —— Setup Script 🔧 ——————————————————————————————————————————————————————————
+            -   name: Debug statement code
+                run: php bin/console WIDECONNECT:debug
+
+            # —— Setup Unit test ✅ ————————————————————————————————————————————————————————
+            -   name: Unit tests
+                run: |
+                    php bin/console d:d:c --env=test
+                    php bin/console d:m:m --env=test --no-interaction
+                    php bin/console d:f:l --env=test --no-interaction
+                    php bin/phpunit
+                env:
+                    DATABASE_URL: ${{ env.db_type }}://${{ env.db_user }}:${{ env.db_password }}@${{ env.db_host }}:${{ job.services.mysql.ports['3306'] }}/${{ env.db_name }}

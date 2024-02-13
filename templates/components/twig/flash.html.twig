@@ -1,0 +1,43 @@
+{% for message in app.flashes('info') %}
+    {{ component('Alert', {'title': 'Info', 'message': message|raw, 'color': 'info'}) }}
+{% endfor %}
+
+{% for message in app.flashes('error') %}
+    {{ component('Alert', {'title': 'Error', 'message': message|raw, 'color': 'danger'}) }}
+{% endfor %}
+
+{% for message in app.flashes('success') %}
+    {{ component('Alert', {'title': 'Success', 'message': message|raw, 'color': 'success'}) }}
+{% endfor %}
+
+{% for message in app.flashes('warning') %}
+    {{ component('Alert', {'title': 'Warning', 'message': message|raw, 'color': 'warning'}) }}
+{% endfor %}
+
+{% if errors is defined %}
+    {{ _self.format_errors(errors) }}
+{% endif %}
+
+{% macro format_errors(errors) %}
+    {% if errors is iterable %}
+        {% if errors|length > 0 %}
+            {% for error in errors %}
+                {% if error is instanceof('App\\Service\\Validation\\Error\\TranslatedError') %}
+                    {{ component('Alert', {'title': 'Error', 'message': error.key|trans(error.params, 'security')|raw, 'color': 'danger'}) }}
+                {% elseif error is instanceof('App\\Service\\Validation\\Error\\CustomError') %}
+                    {{ component('Alert', {'title': 'Error', 'message': (error.key ~ ' ' ~ error.message)|raw, 'color': 'danger'}) }}
+                {% elseif error is instanceof('App\\Service\\Validation\\Error\\UnknownError') %}
+                    {{ component('Alert', {'title': 'Error', 'message': error.message|raw, 'color': 'danger'}) }}
+                {% elseif error is instanceof('Symfony\\Component\\Validator\\ConstraintViolation') %}
+                    {{ component('Alert', {'title': 'Error', 'message': error.message|raw, 'color': 'danger'}) }}
+                {% elseif error is instanceof('Symfony\\Component\\Validator\\ConstraintViolationList') %}
+                    {{ _self.format_errors(error) }}
+                {% else %}
+                    {{ component('Alert', {'title': 'Error', 'message': error|raw, 'color': 'danger'}) }}
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+    {% else %}
+        {{ component('Alert', {'title': 'Error', 'message': errors|raw, 'color': 'danger'}) }}
+    {% endif %}
+{% endmacro %}

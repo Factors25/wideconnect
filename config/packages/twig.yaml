@@ -1,0 +1,26 @@
+twig:
+    cache: false
+    default_path: '%kernel.project_dir%/templates'
+    form_themes: [ 'theme/theme.html.twig' ]
+    paths:
+        '%kernel.project_dir%/public': public_path
+    globals:
+        config:
+            favico: 'WIDECONNECT_LOGO.ico'
+            website: 'https://WIDECONNECT.fr'
+            society: 'WIDECONNECT'
+            logo:
+                simple:
+                    dark: 'WIDECONNECT_LOGO_SIMPLE.png'
+                    light: 'WIDECONNECT_LOGO_SIMPLE.png'
+                dark: 'WIDECONNECT_LOGO.png'
+                light: 'WIDECONNECT_LOGO.png'
+
+        app_service_user: '@App\Service\Entity\User\UserService'
+        app_action_user: '@App\Service\Entity\User\UserAction'
+
+        app_service_http: '@App\Service\Http\HttpService'
+
+when@test:
+    twig:
+        strict_variables: true

@@ -1,0 +1,7 @@
+{% extends 'bootstrap_5_layout.html.twig' %}
+
+{% block money_widget %}
+    {%- set type = type|default('number') -%}
+    {%- set value = value|replace({',':'.'}) -%}
+    {{ parent() }}
+{% endblock %}
