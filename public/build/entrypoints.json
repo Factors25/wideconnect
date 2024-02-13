@@ -1,0 +1,47 @@
+{
+  "entrypoints": {
+    "app": {
+      "js": [
+        "/build/runtime.js",
+        "/build/vendors-node_modules_jquery_dist_jquery_js.js",
+        "/build/vendors-node_modules_core-js_modules_es_array_concat_js-node_modules_core-js_modules_es_array-9caedb.js",
+        "/build/vendors-node_modules_eonasdan_tempus-dominus_dist_js_tempus-dominus_min_js-node_modules_eonas-5ad89c.js",
+        "/build/assets_js_components_user_user_util_js.js",
+        "/build/app.js"
+      ],
+      "css": [
+        "/build/vendors-node_modules_eonasdan_tempus-dominus_dist_js_tempus-dominus_min_js-node_modules_eonas-5ad89c.css",
+        "/build/app.css"
+      ]
+    },
+    "security": {
+      "js": [
+        "/build/runtime.js",
+        "/build/vendors-node_modules_jquery_dist_jquery_js.js",
+        "/build/vendors-node_modules_particles_js_particles_js.js",
+        "/build/security.js"
+      ],
+      "css": [
+        "/build/security.css"
+      ]
+    },
+    "user_index": {
+      "js": [
+        "/build/runtime.js",
+        "/build/vendors-node_modules_jquery_dist_jquery_js.js",
+        "/build/vendors-node_modules_core-js_modules_es_array_concat_js-node_modules_core-js_modules_es_array-9caedb.js",
+        "/build/assets_js_components_user_user_util_js.js",
+        "/build/user_index.js"
+      ]
+    },
+    "user_show": {
+      "js": [
+        "/build/runtime.js",
+        "/build/vendors-node_modules_jquery_dist_jquery_js.js",
+        "/build/vendors-node_modules_core-js_modules_es_array_concat_js-node_modules_core-js_modules_es_array-9caedb.js",
+        "/build/assets_js_components_user_user_util_js.js",
+        "/build/user_show.js"
+      ]
+    }
+  }
+}
