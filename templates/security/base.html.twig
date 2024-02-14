@@ -36,12 +36,18 @@
         <div class="d-flex flex-center flex-column flex-column-fluid">
             {% block body %}{% endblock %}
         </div>
-        <div class="d-flex flex-center flex-wrap fs-6 p-5 pb-0">
+        <div class="d-flex flex-center flex-wrap fs-6 p-5 pb-0 gap-3">
             <div class="d-flex flex-center fw-semibold fs-6">
                 <span class="text-white">
                     {{ 'now'|date('Y') }}&copy;
                     <a href="{{ config.website }}" class="text-muted text-hover-primary"
                        target="_blank">{{ config.society }}</a>
+                </span>
+            </div>
+
+            <div class="d-flex flex-center fw-semibold fs-6">
+                <span class="text-white">
+                    <a class="nav-link" href="{{ path('privacy_policy') }}">Politique de confidentialité</a>
                 </span>
             </div>
         </div>
