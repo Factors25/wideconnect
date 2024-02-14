@@ -2,45 +2,49 @@
   "entrypoints": {
     "app": {
       "js": [
-        "/build/runtime.js",
-        "/build/vendors-node_modules_jquery_dist_jquery_js.js",
-        "/build/vendors-node_modules_core-js_modules_es_array_concat_js-node_modules_core-js_modules_es_array-9caedb.js",
-        "/build/vendors-node_modules_eonasdan_tempus-dominus_dist_js_tempus-dominus_min_js-node_modules_eonas-5ad89c.js",
-        "/build/assets_js_components_user_user_util_js.js",
-        "/build/app.js"
+        "https://localhost:8080/build/runtime.js",
+        "https://localhost:8080/build/vendors-node_modules_webpack-dev-server_client_index_js_protocol_wss_3A_hostname_localhost_po-2cd07f.js",
+        "https://localhost:8080/build/vendors-node_modules_jquery_dist_jquery_js.js",
+        "https://localhost:8080/build/vendors-node_modules_core-js_modules_es_array_concat_js-node_modules_core-js_modules_es_array-9caedb.js",
+        "https://localhost:8080/build/vendors-node_modules_eonasdan_tempus-dominus_dist_js_tempus-dominus_min_js-node_modules_eonas-6b6591.js",
+        "https://localhost:8080/build/assets_js_components_user_user_util_js.js",
+        "https://localhost:8080/build/app.js"
       ],
       "css": [
-        "/build/vendors-node_modules_eonasdan_tempus-dominus_dist_js_tempus-dominus_min_js-node_modules_eonas-5ad89c.css",
-        "/build/app.css"
+        "https://localhost:8080/build/vendors-node_modules_eonasdan_tempus-dominus_dist_js_tempus-dominus_min_js-node_modules_eonas-6b6591.css",
+        "https://localhost:8080/build/app.css"
       ]
     },
     "security": {
       "js": [
-        "/build/runtime.js",
-        "/build/vendors-node_modules_jquery_dist_jquery_js.js",
-        "/build/vendors-node_modules_particles_js_particles_js.js",
-        "/build/security.js"
+        "https://localhost:8080/build/runtime.js",
+        "https://localhost:8080/build/vendors-node_modules_webpack-dev-server_client_index_js_protocol_wss_3A_hostname_localhost_po-2cd07f.js",
+        "https://localhost:8080/build/vendors-node_modules_jquery_dist_jquery_js.js",
+        "https://localhost:8080/build/vendors-node_modules_mini-css-extract-plugin_dist_hmr_hotModuleReplacement_js-node_modules_pa-7b3197.js",
+        "https://localhost:8080/build/security.js"
       ],
       "css": [
-        "/build/security.css"
+        "https://localhost:8080/build/security.css"
       ]
     },
     "user_index": {
       "js": [
-        "/build/runtime.js",
-        "/build/vendors-node_modules_jquery_dist_jquery_js.js",
-        "/build/vendors-node_modules_core-js_modules_es_array_concat_js-node_modules_core-js_modules_es_array-9caedb.js",
-        "/build/assets_js_components_user_user_util_js.js",
-        "/build/user_index.js"
+        "https://localhost:8080/build/runtime.js",
+        "https://localhost:8080/build/vendors-node_modules_webpack-dev-server_client_index_js_protocol_wss_3A_hostname_localhost_po-2cd07f.js",
+        "https://localhost:8080/build/vendors-node_modules_jquery_dist_jquery_js.js",
+        "https://localhost:8080/build/vendors-node_modules_core-js_modules_es_array_concat_js-node_modules_core-js_modules_es_array-9caedb.js",
+        "https://localhost:8080/build/assets_js_components_user_user_util_js.js",
+        "https://localhost:8080/build/user_index.js"
       ]
     },
     "user_show": {
       "js": [
-        "/build/runtime.js",
-        "/build/vendors-node_modules_jquery_dist_jquery_js.js",
-        "/build/vendors-node_modules_core-js_modules_es_array_concat_js-node_modules_core-js_modules_es_array-9caedb.js",
-        "/build/assets_js_components_user_user_util_js.js",
-        "/build/user_show.js"
+        "https://localhost:8080/build/runtime.js",
+        "https://localhost:8080/build/vendors-node_modules_webpack-dev-server_client_index_js_protocol_wss_3A_hostname_localhost_po-2cd07f.js",
+        "https://localhost:8080/build/vendors-node_modules_jquery_dist_jquery_js.js",
+        "https://localhost:8080/build/vendors-node_modules_core-js_modules_es_array_concat_js-node_modules_core-js_modules_es_array-9caedb.js",
+        "https://localhost:8080/build/assets_js_components_user_user_util_js.js",
+        "https://localhost:8080/build/user_show.js"
       ]
     }
   }
