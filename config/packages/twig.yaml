@@ -8,7 +8,7 @@ twig:
         config:
             favico: 'WIDECONNECT_LOGO.ico'
             website: 'https://WIDECONNECT.fr'
-            society: 'WIDECONNECT'
+            society: 'Wideconnect'
             logo:
                 simple:
                     dark: 'WIDECONNECT_LOGO_SIMPLE.png'

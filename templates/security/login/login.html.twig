@@ -5,6 +5,8 @@
         <form action="{{ path('login') }}" class="form w-100" id="kt_sign_up_form" method="post">
             <div class="mb-10 text-center">
                 <h1 class="mb-3">Connexion</h1>
+                <div class="text-gray-400 fw-semibold fs-4">Pas de compte ?
+                    <a href="{{ path('register') }}" class="link-primary fw-bold">Créer mon compte ici</a></div>
             </div>
 
             {{ component('Flash', {'errors': errors is defined ? errors : []}) }}

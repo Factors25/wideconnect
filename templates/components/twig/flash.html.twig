@@ -32,6 +32,10 @@
                     {{ component('Alert', {'title': 'Error', 'message': error.message|raw, 'color': 'danger'}) }}
                 {% elseif error is instanceof('Symfony\\Component\\Validator\\ConstraintViolationList') %}
                     {{ _self.format_errors(error) }}
+                {% elseif errors is iterable %}
+                    {% if errors|length > 0 %}
+                        {{ _self.format_errors(error) }}
+                    {% endif %}
                 {% else %}
                     {{ component('Alert', {'title': 'Error', 'message': error|raw, 'color': 'danger'}) }}
                 {% endif %}
