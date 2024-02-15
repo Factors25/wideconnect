@@ -76,15 +76,11 @@ class UserType extends AbstractType
                     'Au moins un chiffre.<br>' .
                     'Au moins un caractère spécial.',
                 'attr' => [...UserPlaceholder::PASSWORD],
-                'help_html' => true,
-                'sanitize_html' => true,
-                'sanitizer' => 'app.clean'
+                'help_html' => true
             ],
             'second_options' => [
                 'label' => 'Confirmation mot de passe',
-                'attr' => [...UserPlaceholder::PASSWORD],
-                'sanitize_html' => true,
-                'sanitizer' => 'app.clean'
+                'attr' => [...UserPlaceholder::PASSWORD]
             ],
             'invalid_message' => 'Les mots de passes semblent différent.'
         ]);
@@ -126,15 +122,11 @@ class UserType extends AbstractType
                         'Au moins un chiffre.<br>' .
                         'Au moins un caractère spécial.',
                     'attr' => [...UserPlaceholder::PASSWORD],
-                    'help_html' => true,
-                    'sanitize_html' => true,
-                    'sanitizer' => 'app.clean'
+                    'help_html' => true
                 ],
                 'second_options' => [
                     'label' => 'Confirmer le mot de passe',
-                    'attr' => [...UserPlaceholder::PASSWORD],
-                    'sanitize_html' => true,
-                    'sanitizer' => 'app.clean'
+                    'attr' => [...UserPlaceholder::PASSWORD]
                 ],
                 'invalid_message' => 'Les mots de passes semblent différent.',
                 'constraints' => [
