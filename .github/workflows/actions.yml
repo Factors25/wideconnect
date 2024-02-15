@@ -41,6 +41,7 @@ jobs:
       - name: Git clone
         run: |
           git clone https://github.com/Factors25/wideconnect.git src
+          cd src
       
       # —— Setup PHP 💻 —————————————————————————————————————————————
       # https://github.com/shivammathur/setup-php (community)
