@@ -134,5 +134,7 @@ jobs:
       
       - name: Build and push
         run: |
+          ls
           cd ../..
-          make build-and-push
+          ls
+          make build-and-push-from-ci
