@@ -16,6 +16,8 @@ jobs:
       db_name: wideconnect
       db_host: 127.0.0.1
       db_type: mysql
+      resource: image_build/php_service/src
+      makefile: image_build
     services:
       # https://hub.docker.com/_/mysql
       mysql:
@@ -30,18 +32,11 @@ jobs:
     steps:
       # —— Build Docker Image 🐳 ————————————————————————————————————————————————————————
       - name: Clone Builder config
-        run: |
-          git clone https://github.com/MickaelLivecampus/docker-php .
-          cd image_build/php_service
+        run: git clone https://github.com/MickaelLivecampus/docker-php .
       
-      # —— Setup GitBub actions 🐙 —————————————————————————————————————————————
-      # https://github.com/actions/checkout (official)
-      #      - name: Github actions checkout
-      #        uses: actions/checkout@v4
+      # —— Setup GitBub Repository 🐙 —————————————————————————————————————————————
       - name: Git clone
-        run: |
-          git clone https://github.com/Factors25/wideconnect.git src
-          cd src
+        run: git clone https://github.com/Factors25/wideconnect.git src
       
       # —— Setup PHP 💻 —————————————————————————————————————————————
       # https://github.com/shivammathur/setup-php (community)
@@ -58,22 +53,22 @@ jobs:
       
       # —— Setup Composer 🧙‍️ —————————————————————————————————————————————————————————
       - name: Validate composer.json and composer.lock
-        run: |
-          ls
-          composer validate
+        run: composer validate
+        working-directory: ${{ env.resource }}
       
       # https://github.com/actions/cache
       - name: Cache Composer packages
         id: composer-cache
         uses: actions/cache@v3
         with:
-          path: vendor
+          path: ${{ env.resource }}/vendor
           key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
           restore-keys: |
             ${{ runner.os }}-php-
       
       - name: Install Dependencies
         run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
+        working-directory: ${{ env.resource }}
       
       # —— Setup Yarn 🐱 ————————————————————————————————————————————————————————————
       # https://github.com/actions/setup-node
@@ -84,9 +79,11 @@ jobs:
       
       - name: Yarn install
         run: yarn install
+        working-directory: ${{ env.resource }}
       
       - name: Yarn build
         run: yarn run encore production
+        working-directory: ${{ env.resource }}
       
       # —— Setup Symfony 🎵 —————————————————————————————————————————————
       # https://symfony.com/download (official)
@@ -97,25 +94,31 @@ jobs:
       
       - name: Check Symfony requirements
         run: symfony check:requirements
+        working-directory: ${{ env.resource }}
       
       - name: Check Symfony security
         run: symfony check:security
+        working-directory: ${{ env.resource }}
       
       - name: Check the Symfony console
         run: php bin/console about
+        working-directory: ${{ env.resource }}
       
       # —— Setup MySQL ✨ ——————————————————————————————————————————————————————————
       - name: Create and setup database
         run: php bin/console d:m:m --env=prod --no-interaction
         env:
           DATABASE_URL: ${{ env.db_type }}://${{ env.db_user }}:${{ env.db_password }}@${{ env.db_host }}:${{ job.services.mysql.ports['3306'] }}/${{ env.db_name }}
+        working-directory: ${{ env.resource }}
       
       - name: Dump to prod
         run: composer dump-env prod
+        working-directory: ${{ env.resource }}
       
       # —— Setup Script 🔧 ——————————————————————————————————————————————————————————
       - name: Debug statement code
         run: php bin/console wideconnect:debug
+        working-directory: ${{ env.resource }}
       
       # —— Setup Unit test ✅ ————————————————————————————————————————————————————————
       - name: Unit tests
@@ -126,6 +129,7 @@ jobs:
           php bin/phpunit
         env:
           DATABASE_URL: ${{ env.db_type }}://${{ env.db_user }}:${{ env.db_password }}@${{ env.db_host }}:${{ job.services.mysql.ports['3306'] }}/${{ env.db_name }}
+        working-directory: ${{ env.resource }}
       
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
@@ -137,6 +141,5 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       
       - name: Build and push
-        run: |
-          cd ../..
-          make build-and-push-from-ci
+        run: make build-and-push-from-ci
+        working-directory: ${{ env.makefile }}
