@@ -42,6 +42,7 @@ jobs:
         run: |
           git clone https://github.com/Factors25/wideconnect.git src
           cd src
+          ls
       
       # —— Setup PHP 💻 —————————————————————————————————————————————
       # https://github.com/shivammathur/setup-php (community)
@@ -136,7 +137,5 @@ jobs:
       
       - name: Build and push
         run: |
-          ls
           cd ../..
-          ls
           make build-and-push-from-ci
