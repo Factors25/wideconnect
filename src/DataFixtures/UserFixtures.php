@@ -3,6 +3,7 @@
 namespace App\DataFixtures;
 
 use App\Entity\User;
+use App\Repository\UserRepository;
 use App\Service\Manager\ManagerService;
 use App\Service\Security\SecurityConstant;
 use DateTimeImmutable;
@@ -16,13 +17,20 @@ class UserFixtures extends Fixture implements OrderedFixtureInterface, FixtureGr
 {
     public function __construct(
         private readonly UserPasswordHasherInterface $passwordHasher,
-        private readonly ManagerService              $managerService
+        private readonly ManagerService              $managerService,
+        private readonly UserRepository              $userRepository
     )
     {
     }
 
     public function load(ObjectManager $manager): void
     {
+        $user = $this->userRepository->findOneBy(['email' => 'alexis25.py@gmail.com']);
+
+        if ($user !== null) {
+            return;
+        }
+
         $user = new User();
 
         $user->setUsername('apy')
