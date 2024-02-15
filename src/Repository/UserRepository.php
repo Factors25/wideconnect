@@ -97,8 +97,6 @@ class UserRepository extends ServiceEntityRepository
         $today = new DateTimeImmutable();
         $inactiveDate = $today->sub(new DateInterval('P7D'));
 
-        echo $inactiveDate->format('Y-m-d 00:00:00');
-
         return $this->createQueryBuilder('u')
             ->where('u.lastActivityAt <= :inactiveDate')
             ->setParameter('inactiveDate', $inactiveDate->format('Y-m-d 00:00:00'))
