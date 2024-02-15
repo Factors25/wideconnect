@@ -3,7 +3,6 @@
 namespace App\Security;
 
 use Exception;
-use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -60,7 +59,7 @@ class UserAuthenticator extends AbstractLoginFormAuthenticator
     }
 
     /**
-     * @param Request                 $request
+     * @param Request $request
      * @param AuthenticationException $exception
      * @return Response
      */

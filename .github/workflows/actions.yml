@@ -130,16 +130,16 @@ jobs:
         env:
           DATABASE_URL: ${{ env.db_type }}://${{ env.db_user }}:${{ env.db_password }}@${{ env.db_host }}:${{ job.services.mysql.ports['3306'] }}/${{ env.db_name }}
         working-directory: ${{ env.resource }}
-      
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
-      
-      - name: Login to Docker Hub
-        uses: docker/login-action@v3
-        with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
-      
-      - name: Build and push
-        run: make build-and-push-from-ci
-        working-directory: ${{ env.makefile }}
+
+#      - name: Set up Docker Buildx
+#        uses: docker/setup-buildx-action@v3
+#
+#      - name: Login to Docker Hub
+#        uses: docker/login-action@v3
+#        with:
+#          username: ${{ secrets.DOCKERHUB_USERNAME }}
+#          password: ${{ secrets.DOCKERHUB_TOKEN }}
+#
+#      - name: Build and push
+#        run: make build-and-push-from-ci
+#        working-directory: ${{ env.makefile }}
