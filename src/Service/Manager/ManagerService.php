@@ -54,10 +54,14 @@ class ManagerService
     {
         try {
             $entityValidator = $this->entityValidator($entity, self::METHOD_IS_ABLE_TO_CREATE);
-            if ($entityValidator['success'] === false) return $entityValidator;
+            if ($entityValidator['success'] === false) {
+                return $entityValidator;
+            }
 
             $errors = $this->validator->validate($entity);
-            if (count($errors) > 0) return Error::generate($errors);
+            if (count($errors) > 0) {
+                return Error::generate($errors);
+            }
 
             $entity->setCreatedAt(new DateTimeImmutable());
             $entity->setCreatedBy($this->user);
@@ -83,10 +87,14 @@ class ManagerService
     {
         try {
             $entityValidator = $this->entityValidator($entity, self::METHOD_IS_ABLE_TO_UPDATE);
-            if ($entityValidator['success'] === false) return $entityValidator;
+            if ($entityValidator['success'] === false) {
+                return $entityValidator;
+            }
 
             $errors = $this->validator->validate($entity);
-            if (count($errors) > 0) return Error::generate($errors);
+            if (count($errors) > 0) {
+                return Error::generate($errors);
+            }
 
             $entity->setUpdatedAt(new DateTimeImmutable());
             $entity->setUpdatedBy($this->user);
@@ -109,7 +117,9 @@ class ManagerService
     {
         try {
             $entityValidator = $this->entityValidator($entity, self::METHOD_IS_ABLE_TO_DELETE);
-            if ($entityValidator['success'] === false) return $entityValidator;
+            if ($entityValidator['success'] === false) {
+                return $entityValidator;
+            }
 
             if ($entity->getSoftDelete()) {
                 $entity->setUpdatedAt(new DateTimeImmutable());
@@ -142,10 +152,14 @@ class ManagerService
     {
         try {
             $entityValidator = $this->entityValidator($entity, self::METHOD_IS_ABLE_TO_ARCHIVE);
-            if ($entityValidator['success'] === false) return $entityValidator;
+            if ($entityValidator['success'] === false) {
+                return $entityValidator;
+            }
 
             $errors = $this->validator->validate($entity);
-            if (count($errors) > 0) return Error::generate($errors);
+            if (count($errors) > 0) {
+                return Error::generate($errors);
+            }
 
             $entity->setUpdatedAt(new DateTimeImmutable());
             $entity->setUpdatedBy($this->user);
@@ -178,7 +192,9 @@ class ManagerService
             $method = 'isAbleTo' . ucfirst($column);
 
             $entityValidator = $this->entityValidator($entity, $method);
-            if ($entityValidator['success'] === false) return $entityValidator;
+            if ($entityValidator['success'] === false) {
+                return $entityValidator;
+            }
 
             $getterFound = false;
 
@@ -191,7 +207,9 @@ class ManagerService
                 }
             }
 
-            if ($getterFound === false) return Error::generate(Env::isDev() ? "Getter for column '$column' doesn't exist" : UnknownError::DEFAULT_MESSAGE);
+            if ($getterFound === false) {
+                return Error::generate(Env::isDev() ? "Getter for column '$column' doesn't exist" : UnknownError::DEFAULT_MESSAGE);
+            }
 
             foreach (self::ENTITY_SET_METHODS as $ENTITY_SET_METHOD) {
                 $setter = $ENTITY_SET_METHOD . ucfirst($column);
@@ -215,8 +233,12 @@ class ManagerService
     #[ArrayShape(['success' => 'int', 'errors' => 'array'])]
     public function unArchive($entity): array
     {
-        if (!$entity->isArchived()) return Error::generate(self::ENTITY_MESSAGE_NOT_ARCHIVED);
-        if ($entity->isDeleted()) return Error::generate(self::ENTITY_MESSAGE_DELETED);
+        if (!$entity->isArchived()) {
+            return Error::generate(self::ENTITY_MESSAGE_NOT_ARCHIVED);
+        }
+        if ($entity->isDeleted()) {
+            return Error::generate(self::ENTITY_MESSAGE_DELETED);
+        }
 
         try {
             $entity->setUpdatedAt(new DateTimeImmutable());
@@ -238,8 +260,12 @@ class ManagerService
     #[ArrayShape(['success' => 'int', 'errors' => 'array'])]
     public function unDelete($entity): array
     {
-        if (!$entity->isDeleted()) return Error::generate(self::ENTITY_MESSAGE_NOT_DELETED);
-        if ($entity->isArchived()) return Error::generate(self::ENTITY_MESSAGE_ARCHIVED);
+        if (!$entity->isDeleted()) {
+            return Error::generate(self::ENTITY_MESSAGE_NOT_DELETED);
+        }
+        if ($entity->isArchived()) {
+            return Error::generate(self::ENTITY_MESSAGE_ARCHIVED);
+        }
 
         try {
             $entity->setUpdatedAt(new DateTimeImmutable());
@@ -261,8 +287,12 @@ class ManagerService
     {
         $container = $this->kernel->getContainer();
 
-        if ($entity->isDeleted()) return Error::generate(self::ENTITY_MESSAGE_DELETED);
-        if ($entity->isArchived()) return Error::generate(self::ENTITY_MESSAGE_ARCHIVED);
+        if ($entity->isDeleted()) {
+            return Error::generate(self::ENTITY_MESSAGE_DELETED);
+        }
+        if ($entity->isArchived()) {
+            return Error::generate(self::ENTITY_MESSAGE_ARCHIVED);
+        }
 
         $reflection = new ReflectionClass($entity);
 

@@ -16,6 +16,7 @@ use Symfony\Component\Security\Http\Authenticator\Passport\Badge\RememberMeBadge
 use Symfony\Component\Security\Http\Authenticator\Passport\Badge\UserBadge;
 use Symfony\Component\Security\Http\Authenticator\Passport\Credentials\PasswordCredentials;
 use Symfony\Component\Security\Http\Authenticator\Passport\Passport;
+use Symfony\Component\Security\Http\SecurityRequestAttributes;
 use Symfony\Component\Security\Http\Util\TargetPathTrait;
 
 class UserAuthenticator extends AbstractLoginFormAuthenticator
@@ -34,7 +35,7 @@ class UserAuthenticator extends AbstractLoginFormAuthenticator
         $password = $request->get('_password', '');
         $csrf_token = $request->get('_csrf_token', '');
 
-        $request->getSession()->set(Security::LAST_USERNAME, $email);
+        $request->getSession()->set(SecurityRequestAttributes::LAST_USERNAME, $email);
 
         return new Passport(
             new UserBadge($email),
@@ -65,7 +66,7 @@ class UserAuthenticator extends AbstractLoginFormAuthenticator
      */
     public function onAuthenticationFailure(Request $request, AuthenticationException $exception): Response
     {
-        $request->getSession()->set(Security::AUTHENTICATION_ERROR, $exception->getPrevious() ?: $exception);
+        $request->getSession()->set(SecurityRequestAttributes::AUTHENTICATION_ERROR, $exception->getPrevious() ?: $exception);
 
         return new RedirectResponse($this->getLoginUrl($request));
     }

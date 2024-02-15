@@ -80,7 +80,9 @@ class UserAction extends ActionGeneric
         $this->url = $this->deleteUrl($item, $parameters);
         $this->title = UserConstant::DELETE_MESSAGE . ' ' . $item->getUsername();
         $this->message = UserConstant::DELETE_MESSAGE_SUCCESS;
-        if (array_key_exists('redirect', $parameters)) $this->extra['data-redirect'] = $this->redirect;
+        if (array_key_exists('redirect', $parameters)) {
+            $this->extra['data-redirect'] = $this->redirect;
+        }
 
         return $this->_action($content, 'delete');
     }

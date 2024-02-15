@@ -37,7 +37,9 @@ class RegisterController extends AbstractController
     #[Route('/register', name: 'register')]
     public function register(Request $request): Response
     {
-        if ($this->getUser()) return $this->redirectToRoute('home');
+        if ($this->getUser()) {
+            return $this->redirectToRoute('home');
+        }
 
         $user = new User();
 
@@ -98,7 +100,9 @@ class RegisterController extends AbstractController
     #[Route('/register/verify', name: 'register_verify')]
     public function verify(Request $request): Response
     {
-        if ($this->getUser()) return $this->redirectToRoute('home');
+        if ($this->getUser()) {
+            return $this->redirectToRoute('home');
+        }
 
         $email = $request->get('email');
         $token = $request->get('token');

@@ -50,7 +50,8 @@ class UserValidator implements ValidatorInterface
 
     public function validateEntityType($entity): void
     {
-        if (!$entity instanceof User)
+        if (!$entity instanceof User) {
             throw new InvalidArgumentException("Invalid entity type. Expected User");
+        }
     }
 }

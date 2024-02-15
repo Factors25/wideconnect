@@ -128,6 +128,8 @@ class ActionGeneric
     private function getRedirect(): void
     {
         $redirect = $this->parameters['redirect'] ?? null;
-        if ($redirect) $this->extra['data-redirect'] = $this->redirect;
+        if ($redirect) {
+            $this->extra['data-redirect'] = $this->redirect;
+        }
     }
 }

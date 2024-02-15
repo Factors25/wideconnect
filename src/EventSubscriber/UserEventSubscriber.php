@@ -3,11 +3,13 @@
 namespace App\EventSubscriber;
 
 use App\Entity\User;
+use App\Service\Manager\ManagerService;
+use DateTimeImmutable;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
-use Symfony\Component\Security\Http\Attribute\CurrentUser;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Twig\Environment;
 use Twig\Error\LoaderError;
 use Twig\Error\RuntimeError;
@@ -15,14 +17,17 @@ use Twig\Error\SyntaxError;
 
 class UserEventSubscriber implements EventSubscriberInterface
 {
-    private ?User $user;
+    private ?TokenStorageInterface $tokenStorage;
 
     private Environment $twig;
 
-    public function __construct(#[CurrentUser] ?User $user, Environment $twig)
+    private ManagerService $managerService;
+
+    public function __construct(TokenStorageInterface $tokenStorage, Environment $twig, ManagerService $managerService)
     {
-        $this->user = $user;
+        $this->tokenStorage = $tokenStorage;
         $this->twig = $twig;
+        $this->managerService = $managerService;
     }
 
     /**
@@ -32,17 +37,27 @@ class UserEventSubscriber implements EventSubscriberInterface
      */
     public function onKernelRequest(RequestEvent $event): void
     {
-        if (!$event->isMainRequest()) return;
+        /** @var User $user */
+        $user = $this->tokenStorage->getToken()?->getUser();
 
-        if(!$this->user) return;
+        if (!$event->isMainRequest()) {
+            return;
+        }
+
+        if(!$user) {
+            return;
+        }
+
+        $user->setLastActivityAt(new DateTimeImmutable());
+        $this->managerService->update($user);
 
         if(
-            !in_array('ROLE_ADMIN', $this->user->getRoles(), true) ||
-            !in_array('ROLE_SUPER_ADMIN', $this->user->getRoles(), true)
+            !in_array('ROLE_ADMIN', $user->getRoles(), true) &&
+            !in_array('ROLE_SUPER_ADMIN', $user->getRoles(), true)
         ) {
             $template = $this->twig->render('security/hotspot/hotspot.html.twig');
 
-            $event->setResponse(new Response($template, 503));
+            $event->setResponse(new Response($template, 200));
             $event->stopPropagation();
         }
     }

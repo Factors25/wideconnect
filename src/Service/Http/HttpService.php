@@ -14,7 +14,9 @@ class HttpService
 
         $colors = [1 => 'info', 2 => 'success', 3 => 'warning', 4 => 'orange', 5 => 'danger'];
 
-        if (array_key_exists($digit, $colors)) return $colors[$digit];
+        if (array_key_exists($digit, $colors)) {
+            return $colors[$digit];
+        }
 
         return 'light';
     }

@@ -19,7 +19,9 @@ class AuthController extends AbstractController
     #[Route(path: '/login', name: 'login')]
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
-        if ($this->getUser()) return $this->redirectToRoute('home');
+        if ($this->getUser()) {
+            return $this->redirectToRoute('home');
+        }
 
         $lastError = $authenticationUtils->getLastAuthenticationError();
         $errors = [];

@@ -26,8 +26,12 @@ readonly class DiffService
             }
         }
 
-        if ($is_object_a) $a = $this->serializerService->serialize($a);
-        if ($is_object_b) $b = $this->serializerService->serialize($b);
+        if ($is_object_a) {
+            $a = $this->serializerService->serialize($a, '');
+        }
+        if ($is_object_b) {
+            $b = $this->serializerService->serialize($b, '');
+        }
 
         $this->recursive_unset($a, '_format');
         $this->recursive_unset($b, '_format');
@@ -78,9 +82,15 @@ readonly class DiffService
         $common = [];
 
         foreach ($a as $childA) {
-            if ($childA === null) continue;
-            if (array_key_exists('id', $childA)) $search = in_array($childA['id'], array_column($b, 'id'), true);
-            else $search = true;
+            if ($childA === null) {
+                continue;
+            }
+            if (array_key_exists('id', $childA)) {
+                $search = in_array($childA['id'], array_column($b, 'id'), true);
+            }
+            else {
+                $search = true;
+            }
 
             if ($search === false) {
                 $changes[] = [
@@ -94,9 +104,15 @@ readonly class DiffService
         }
 
         foreach ($b as $childB) {
-            if ($childB === null) continue;
-            if (array_key_exists('id', $childB)) $search = in_array($childB['id'], array_column($a, 'id'), true);
-            else $search = true;
+            if ($childB === null) {
+                continue;
+            }
+            if (array_key_exists('id', $childB)) {
+                $search = in_array($childB['id'], array_column($a, 'id'), true);
+            }
+            else {
+                $search = true;
+            }
 
             if ($search === false) {
                 $changes[] = [

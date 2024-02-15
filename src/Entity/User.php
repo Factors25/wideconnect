@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Entity\Trait\EntityLifeCycle\EntityLifeCycleTrait;
 use App\Repository\UserRepository;
 use App\Service\Security\SecurityConstant;
+use DateTimeImmutable;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -16,9 +17,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[UniqueEntity(fields: ['username'])]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
-    use EntityLifeCycleTrait {
-        EntityLifeCycleTrait::__construct as private EntityLifeCycleTrait;
-    }
+    use EntityLifeCycleTrait;
 
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -58,10 +57,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[Assert\NotNull]
     private ?bool $verify;
 
+    #[ORM\Column]
+    private ?DateTimeImmutable $lastActivityAt;
+
     public function __construct()
     {
-        $this->EntityLifeCycleTrait(true);
-
         $this->id = null;
         $this->email = null;
         $this->roles = [SecurityConstant::ROLE_USER];
@@ -70,6 +70,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->active = false;
         $this->token = [];
         $this->verify = false;
+        $this->lastActivityAt = new DateTimeImmutable();
     }
 
     public function getId(): ?int
@@ -172,6 +173,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setVerify(?bool $verify): self
     {
         $this->verify = $verify;
+
+        return $this;
+    }
+
+    public function getLastActivityAt(): ?DateTimeImmutable
+    {
+        return $this->lastActivityAt;
+    }
+
+    public function setLastActivityAt(DateTimeImmutable $lastActivityAt): static
+    {
+        $this->lastActivityAt = $lastActivityAt;
 
         return $this;
     }

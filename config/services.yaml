@@ -25,8 +25,9 @@ services:
     
     App\EventSubscriber\UserEventSubscriber:
         arguments:
-            $user: #[CurrentUser]
+            $tokenStorage: '@security.token_storage'
             $twig: '@twig'
+            $managerService: '@App\Service\Manager\ManagerService'
 
     # Entity user
     app.validator.user:

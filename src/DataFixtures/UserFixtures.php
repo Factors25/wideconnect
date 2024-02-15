@@ -5,6 +5,7 @@ namespace App\DataFixtures;
 use App\Entity\User;
 use App\Service\Manager\ManagerService;
 use App\Service\Security\SecurityConstant;
+use DateTimeImmutable;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
@@ -34,6 +35,7 @@ class UserFixtures extends Fixture implements OrderedFixtureInterface, FixtureGr
             )
             ->setVerify(1)
             ->setActive(1)
+            ->setLastActivityAt(new DateTimeImmutable())
             ->setRoles([SecurityConstant::ROLE_SUPER_ADMIN]);
 
         $this->managerService->create($user);

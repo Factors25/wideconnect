@@ -21,7 +21,7 @@ use Symfony\Component\Validator\Constraints\Regex;
 
 class UserType extends AbstractType
 {
-    public function __construct(private SecurityConstant $securityConstant)
+    public function __construct(private readonly SecurityConstant $securityConstant)
     {
     }
 

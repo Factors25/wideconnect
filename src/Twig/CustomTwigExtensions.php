@@ -29,28 +29,36 @@ class CustomTwigExtensions extends AbstractExtension
     public function custom_created_filter(mixed $obj): string
     {
         $user = $obj->getCreatedBy() ? $obj->getCreatedBy()->getUsername() : null;
-        if (is_null($user)) return '-';
+        if (is_null($user)) {
+            return '-';
+        }
         return 'Par ' . $user . ', ' . $this->custom_date_display($obj->getCreatedAt());
     }
 
     public function custom_updated_filter(mixed $obj): string
     {
         $user = $obj->getUpdatedBy() ? $obj->getUpdatedBy()->getUsername() : null;
-        if (is_null($user)) return '-';
+        if (is_null($user)) {
+            return '-';
+        }
         return 'Par ' . $user . ', ' . $this->custom_date_display($obj->getUpdatedAt());
     }
 
     public function custom_deleted_filter(mixed $obj): string
     {
         $user = $obj->getDeletedBy() ? $obj->getDeletedBy()->getUsername() : null;
-        if (is_null($user)) return '-';
+        if (is_null($user)) {
+            return '-';
+        }
         return 'Par ' . $user . ', ' . $this->custom_date_display($obj->getDeletedAt());
     }
 
     public function custom_archived_filter(mixed $obj): string
     {
         $user = $obj->getArchivedBy() ? $obj->getArchivedBy()->getUsername() : null;
-        if (is_null($user)) return '-';
+        if (is_null($user)) {
+            return '-';
+        }
         return 'Par ' . $user . ', ' . $this->custom_date_display($obj->getArchivedAt());
     }
 
@@ -75,11 +83,15 @@ class CustomTwigExtensions extends AbstractExtension
 
     public function custom_date_display(?DateTimeInterface $datetime, bool $time = true): string
     {
-        if (is_null($datetime)) return '-';
+        if (is_null($datetime)) {
+            return '-';
+        }
 
         $data = 'le ' . $datetime->format('d/m/Y');
 
-        if ($time) $data .= ' à ' . $datetime->format('H') . 'h' . $datetime->format('i');
+        if ($time) {
+            $data .= ' à ' . $datetime->format('H') . 'h' . $datetime->format('i');
+        }
 
         return $data;
     }

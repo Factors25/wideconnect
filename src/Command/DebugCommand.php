@@ -11,12 +11,12 @@ use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\Finder\Finder;
 
 #[AsCommand(
-    name: 'WIDECONNECT:debug',
+    name: 'wideconnect:debug',
     description: 'Research debug code in whole project',
 )]
 class DebugCommand extends Command
 {
-    public function __construct(#[Autowire('%kernel.project_dir%')] private string $projectDir)
+    public function __construct(#[Autowire('%kernel.project_dir%')] private readonly string $projectDir)
     {
         parent::__construct();
     }

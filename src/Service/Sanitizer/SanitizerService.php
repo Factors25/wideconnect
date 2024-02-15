@@ -16,7 +16,9 @@ class SanitizerService
      */
     public static function _sanitize(string $html, ?string $sanitizer = 'default'): string
     {
-        if (false === !in_array($sanitizer, self::ALLOWED_SANITIZERS, true)) return $html;
+        if (false === !in_array($sanitizer, self::ALLOWED_SANITIZERS, true)) {
+            return $html;
+        }
 
         // Decode string to get possible HTML structure
         $decoded = html_entity_decode($html);
@@ -36,7 +38,9 @@ class SanitizerService
      */
     public static function _sanitizeFor(string $html, string $element = 'textarea', ?string $sanitizer = 'default'): string
     {
-        if (false === !in_array($sanitizer, self::ALLOWED_SANITIZERS, true)) return $html;
+        if (false === !in_array($sanitizer, self::ALLOWED_SANITIZERS, true)) {
+            return $html;
+        }
 
         // Decode string to get possible HTML structure
         $decoded = html_entity_decode($html);

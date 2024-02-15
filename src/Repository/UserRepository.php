@@ -4,6 +4,8 @@ namespace App\Repository;
 
 use App\Entity\User;
 use App\Service\Security\SecurityConstant;
+use DateInterval;
+use DateTimeImmutable;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\NoResultException;
@@ -19,7 +21,7 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class UserRepository extends ServiceEntityRepository
 {
-    public function __construct(ManagerRegistry $registry, private SecurityConstant $securityConstant)
+    public function __construct(ManagerRegistry $registry, private readonly SecurityConstant $securityConstant)
     {
         parent::__construct($registry, User::class);
     }
@@ -81,11 +83,26 @@ class UserRepository extends ServiceEntityRepository
         $searchElement = preg_grep('/.*' . $searchItem . '.*/', $this->securityConstant->getTranslatedRoles());
         $res = '';
 
-        foreach ($searchElement as $item)
+        foreach ($searchElement as $item) {
             $res .= 'u.roles LIKE \'%'
                 . array_search($item, $this->securityConstant->getSyncRoles(), true)
                 . '%\' OR ';
+        }
 
         return $res;
+    }
+
+    public function findInactive()
+    {
+        $today = new DateTimeImmutable();
+        $inactiveDate = $today->sub(new DateInterval('P7D'));
+
+        echo $inactiveDate->format('Y-m-d 00:00:00');
+
+        return $this->createQueryBuilder('u')
+            ->where('u.lastActivityAt <= :inactiveDate')
+            ->setParameter('inactiveDate', $inactiveDate->format('Y-m-d 00:00:00'))
+            ->getQuery()
+            ->getResult();
     }
 }

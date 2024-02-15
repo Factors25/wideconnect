@@ -6,7 +6,9 @@ class DomService
 {
     public static function element(string $tag, array $attributes = [], mixed $content = ''): string
     {
-        if ($tag === 'br') return "<$tag />";
+        if ($tag === 'br') {
+            return "<$tag />";
+        }
 
         $html = "<$tag";
 
