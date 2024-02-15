@@ -40,7 +40,7 @@ jobs:
       - name: Github actions checkout
         uses: actions/checkout@v4
         with:
-          path: ${{ resource }}
+          path: ${{ GITHUB_WORKSPACE }}/${{ resource }}
       
       # —— Setup PHP 💻 —————————————————————————————————————————————
       # https://github.com/shivammathur/setup-php (community)
