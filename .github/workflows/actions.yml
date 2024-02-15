@@ -16,8 +16,6 @@ jobs:
       db_name: wideconnect
       db_host: 127.0.0.1
       db_type: mysql
-      resource: ./build_image/src
-      build_image: ./build_image
     services:
       # https://hub.docker.com/_/mysql
       mysql:
@@ -34,7 +32,7 @@ jobs:
       - name: Clone Builder config
         run: |
           git clone https://github.com/MickaelLivecampus/docker-php .
-          cd ${{ resource }}
+          cd ./build_image/src
       
       # —— Setup GitBub actions 🐙 —————————————————————————————————————————————
       # https://github.com/actions/checkout (official)
