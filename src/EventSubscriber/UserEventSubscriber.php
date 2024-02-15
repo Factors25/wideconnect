@@ -40,18 +40,14 @@ class UserEventSubscriber implements EventSubscriberInterface
         /** @var User $user */
         $user = $this->tokenStorage->getToken()?->getUser();
 
-        if (!$event->isMainRequest()) {
-            return;
-        }
-
-        if(!$user) {
+        if (!$user) {
             return;
         }
 
         $user->setLastActivityAt(new DateTimeImmutable());
         $this->managerService->update($user);
 
-        if(
+        if (
             !in_array('ROLE_ADMIN', $user->getRoles(), true) &&
             !in_array('ROLE_SUPER_ADMIN', $user->getRoles(), true)
         ) {

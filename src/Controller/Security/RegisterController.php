@@ -71,6 +71,7 @@ class RegisterController extends AbstractController
             }
 
             $mailerProvider = (new MailerProvider())
+                ->setTo($user->getEmail(), $user->getEmail())
                 ->setSubject('Contact support - inscription')
                 ->setParameters([
                     'template' => $this->renderView('security/register/register_mailer.html.twig', [
