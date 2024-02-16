@@ -2,49 +2,44 @@
   "entrypoints": {
     "app": {
       "js": [
-        "https://localhost:8080/build/runtime.js",
-        "https://localhost:8080/build/vendors-node_modules_webpack-dev-server_client_index_js_protocol_wss_3A_hostname_localhost_po-2cd07f.js",
-        "https://localhost:8080/build/vendors-node_modules_jquery_dist_jquery_js.js",
-        "https://localhost:8080/build/vendors-node_modules_core-js_modules_es_array_concat_js-node_modules_core-js_modules_es_array-9caedb.js",
-        "https://localhost:8080/build/vendors-node_modules_eonasdan_tempus-dominus_dist_js_tempus-dominus_min_js-node_modules_eonas-6b6591.js",
-        "https://localhost:8080/build/assets_js_components_user_user_util_js.js",
-        "https://localhost:8080/build/app.js"
+        "/build/runtime.96c17c7d.js",
+        "/build/755.81641263.js",
+        "/build/987.f19eef97.js",
+        "/build/403.63a91bc6.js",
+        "/build/75.d7e2a921.js",
+        "/build/app.67b9a9a4.js"
       ],
       "css": [
-        "https://localhost:8080/build/vendors-node_modules_eonasdan_tempus-dominus_dist_js_tempus-dominus_min_js-node_modules_eonas-6b6591.css",
-        "https://localhost:8080/build/app.css"
+        "/build/403.12d46e92.css",
+        "/build/app.20cf25a6.css"
       ]
     },
     "security": {
       "js": [
-        "https://localhost:8080/build/runtime.js",
-        "https://localhost:8080/build/vendors-node_modules_webpack-dev-server_client_index_js_protocol_wss_3A_hostname_localhost_po-2cd07f.js",
-        "https://localhost:8080/build/vendors-node_modules_jquery_dist_jquery_js.js",
-        "https://localhost:8080/build/vendors-node_modules_mini-css-extract-plugin_dist_hmr_hotModuleReplacement_js-node_modules_pa-7b3197.js",
-        "https://localhost:8080/build/security.js"
+        "/build/runtime.96c17c7d.js",
+        "/build/755.81641263.js",
+        "/build/security.9a39c550.js"
       ],
       "css": [
-        "https://localhost:8080/build/security.css"
+        "/build/security.14b074c7.css"
       ]
     },
     "user_index": {
       "js": [
-        "https://localhost:8080/build/runtime.js",
-        "https://localhost:8080/build/vendors-node_modules_webpack-dev-server_client_index_js_protocol_wss_3A_hostname_localhost_po-2cd07f.js",
-        "https://localhost:8080/build/vendors-node_modules_jquery_dist_jquery_js.js",
-        "https://localhost:8080/build/vendors-node_modules_core-js_modules_es_array_concat_js-node_modules_core-js_modules_es_array-9caedb.js",
-        "https://localhost:8080/build/assets_js_components_user_user_util_js.js",
-        "https://localhost:8080/build/user_index.js"
+        "/build/runtime.96c17c7d.js",
+        "/build/755.81641263.js",
+        "/build/987.f19eef97.js",
+        "/build/75.d7e2a921.js",
+        "/build/user_index.39b36c96.js"
       ]
     },
     "user_show": {
       "js": [
-        "https://localhost:8080/build/runtime.js",
-        "https://localhost:8080/build/vendors-node_modules_webpack-dev-server_client_index_js_protocol_wss_3A_hostname_localhost_po-2cd07f.js",
-        "https://localhost:8080/build/vendors-node_modules_jquery_dist_jquery_js.js",
-        "https://localhost:8080/build/vendors-node_modules_core-js_modules_es_array_concat_js-node_modules_core-js_modules_es_array-9caedb.js",
-        "https://localhost:8080/build/assets_js_components_user_user_util_js.js",
-        "https://localhost:8080/build/user_show.js"
+        "/build/runtime.96c17c7d.js",
+        "/build/755.81641263.js",
+        "/build/987.f19eef97.js",
+        "/build/75.d7e2a921.js",
+        "/build/user_show.f659a056.js"
       ]
     }
   }
